@@ -1,6 +1,14 @@
-using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
+using Microsoft.EntityFrameworkCore;
+using SalesWebMvc.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure the database context for MySQL
+builder.Services.AddDbContext<SalesWebMvcDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("SalesWebMvcDbContext"),
+        new MySqlServerVersion(new Version(5, 7, 44)), // Change this version to your MySQL version as necessary
+        builder => builder.MigrationsAssembly("SalesWebMvc")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -11,16 +19,12 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 // Map specific routes
