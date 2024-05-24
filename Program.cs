@@ -15,18 +15,28 @@ builder.Services.AddDbContext<SalesWebMvcDbContext>(options =>
         new MySqlServerVersion(new Version(5, 7, 44)), // Change this version to your MySQL version as necessary
         builder => builder.MigrationsAssembly("SalesWebMvc")));
 
+// Register SeedingService for dependency injection.
+// Scoped lifetime services are created once per client request (connection).
+builder.Services.AddScoped<SeedingService>();
+
 // Add MVC services to the service container
 builder.Services.AddControllersWithViews();
 
 // Build the application
 var app = builder.Build();
 
+// Get an instance of SeedingService
+using var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<SeedingService>();
+
 // Configure the HTTP request pipeline.
 // If the app is not in development mode, use exception handler and HSTS
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error"); // Use custom error handling page
     app.UseHsts(); // Use HSTS for security
+    // Call the SeedDatabase method to populate the database
+    seeder.Seed();
 }
 
 // Use HTTPS redirection and static files
