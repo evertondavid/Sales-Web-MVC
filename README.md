@@ -49,13 +49,12 @@ This project is a web application developed using ASP.NET Core MVC, Entity Frame
    git clone https://github.com/evertondavid/Sales-Web-MVC.git
 
 2. **Start the application**:
-   Copy code
-   '''bash
-      dotnet run
+- Copy code:
+   dotnet run
+   
+4. **Open your browser and navigate to https://localhost:5001 to view the application**.
 
-3. **Open your browser and navigate to https://localhost:5001 to view the application**.
-
-4. **Contributing**: 
+5. **Contributing**: 
    Contributions are welcome! Please fork this repository and submit pull requests with any improvements.
 
 5* **License**:
