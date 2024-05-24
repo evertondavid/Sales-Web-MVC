@@ -1,35 +1,52 @@
 @model SalesWebMvc.Models.Department
 
 @{
+    // Set the title of the page
     ViewData["Title"] = "Create";
 }
 
+<!-- Display a header -->
 <h1>Create</h1>
 
+<!-- Display a sub-header -->
 <h4>Department</h4>
 <hr />
+
+<!-- Start a row for the form -->
 <div class="row">
+    <!-- Define a column for the form -->
     <div class="col-md-4">
+        <!-- Start the form with action set to the Create method of the current controller -->
         <form asp-action="Create">
+            <!-- Display validation errors -->
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Start a form group for the Name field -->
             <div class="form-group">
+                <!-- Display a label for the Name field -->
                 <label asp-for="Name" class="control-label"></label>
+                <!-- Display an input for the Name field -->
                 <input asp-for="Name" class="form-control" />
+                <!-- Display validation errors for the Name field -->
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <!-- Start a form group for the submit button -->
             <div class="form-group">
+                <!-- Display a submit button -->
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
+<!-- Display a link to go back to the list -->
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
+<!-- Define a Scripts section -->
 @section Scripts {
     @{
+        // Render the partial view for validation scripts
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

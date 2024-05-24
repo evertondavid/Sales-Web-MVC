@@ -1,27 +1,38 @@
 @model SalesWebMvc.Models.Department
 
 @{
+    // Set the title of the page
     ViewData["Title"] = "Delete";
 }
 
+<!-- Display a header -->
 <h1>Delete</h1>
 
+<!-- Display a confirmation message -->
 <h3>Are you sure you want to delete this?</h3>
 <div>
+    <!-- Display a sub-header -->
     <h4>Department</h4>
     <hr />
+    <!-- Start a definition list -->
     <dl class="row">
+        <!-- Display the name of the field -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
+        <!-- Display the value of the field -->
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
 
+    <!-- Start the form with action set to the Delete method of the current controller -->
     <form asp-action="Delete">
+        <!-- Include a hidden field for the Id -->
         <input type="hidden" asp-for="Id" />
+        <!-- Display a submit button -->
         <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <!-- Display a link to go back to the list -->
         <a asp-action="Index">Back to List</a>
     </form>
 </div>

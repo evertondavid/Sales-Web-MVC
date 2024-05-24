@@ -1,8 +1,21 @@
-namespace SalesWebMvc.Models.ViewModels;
-
-public class ErrorViewModel
+// Define the namespace for the view models
+namespace SalesWebMvc.Models.ViewModels
 {
-    public string? RequestId { get; set; }
+    /// <summary>
+    /// Class for ErrorViewModel.
+    /// This class represents the model for the error view.
+    /// </summary>
+    public class ErrorViewModel
+    {
+        /// <summary>
+        /// Gets or sets the RequestId.
+        /// This is the unique identifier for the HTTP request that caused the error.
+        /// </summary>
+        public string? RequestId { get; set; }
 
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        /// <summary>
+        /// Gets a value indicating whether to show the RequestId.
+        /// </summary>
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    }
 }

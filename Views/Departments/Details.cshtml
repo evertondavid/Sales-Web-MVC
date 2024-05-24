@@ -1,24 +1,32 @@
 @model SalesWebMvc.Models.Department
 
 @{
+    // Set the title of the page
     ViewData["Title"] = "Details";
 }
 
+<!-- Display a header -->
 <h1>Details</h1>
 
 <div>
+    <!-- Display a sub-header -->
     <h4>Department</h4>
     <hr />
+    <!-- Start a definition list -->
     <dl class="row">
+        <!-- Display the name of the field -->
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
+        <!-- Display the value of the field -->
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
 </div>
 <div>
+    <!-- Display a link to the Edit action, passing the Id as a route parameter -->
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <!-- Display a link to go back to the list -->
     <a asp-action="Index">Back to List</a>
 </div>

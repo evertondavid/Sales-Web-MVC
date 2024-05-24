@@ -1,33 +1,46 @@
 @model IEnumerable<SalesWebMvc.Models.Department>
 
 @{
+    // Set the title of the page
     ViewData["Title"] = "Index";
 }
 
+<!-- Display a header -->
 <h1>Index</h1>
 
 <p>
+    <!-- Display a link to the Create action -->
     <a asp-action="Create">Create New</a>
 </p>
+<!-- Start a table -->
 <table class="table">
+    <!-- Define the table header -->
     <thead>
         <tr>
             <th>
+                <!-- Display the name of the Name field -->
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
         </tr>
     </thead>
+    <!-- Define the table body -->
     <tbody>
+        <!-- Loop through each item in the model -->
         @foreach (var item in Model)
         {
+            <!-- Start a table row -->
             <tr>
                 <td>
+                    <!-- Display the value of the Name field for the current item -->
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
+                    <!-- Display a link to the Edit action, passing the Id as a route parameter -->
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <!-- Display a link to the Details action, passing the Id as a route parameter -->
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <!-- Display a link to the Delete action, passing the Id as a route parameter -->
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
