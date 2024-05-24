@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
 using Microsoft.Extensions.DependencyInjection;
+using SalesWebMvc.Services;
 
 // Create a new web application
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<SalesWebMvcDbContext>(options =>
 // Register SeedingService for dependency injection.
 // Scoped lifetime services are created once per client request (connection).
 builder.Services.AddScoped<SeedingService>();
+builder.Services.AddScoped<SellerService>();
 
 // Add MVC services to the service container
 builder.Services.AddControllersWithViews();
@@ -46,19 +48,6 @@ app.UseStaticFiles();
 // Use routing and authorization
 app.UseRouting();
 app.UseAuthorization();
-
-// Map specific routes
-// Map the route for department errors
-app.MapControllerRoute(
-    name: "departments_error",
-    pattern: "Departments/Error",
-    defaults: new { controller = "Departments", action = "Error" });
-
-// Map the route for departments
-app.MapControllerRoute(
-    name: "departments",
-    pattern: "Departments/{action=Index}/{id?}",
-    defaults: new { controller = "Departments" });
 
 // Default route
 // Map the default route
