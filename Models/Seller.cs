@@ -37,6 +37,11 @@ namespace SalesWebMvc.Models
         public Department? Department { get; set; }
 
         /// <summary>
+        /// Gets or sets the DepartmentId of the seller.
+        /// </summary>
+        public int DepartmentId { get; set; }
+
+        /// <summary>
         /// Gets or sets the Sales of the seller.
         /// </summary>
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();

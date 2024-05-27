@@ -20,6 +20,7 @@ builder.Services.AddDbContext<SalesWebMvcDbContext>(options =>
 // Scoped lifetime services are created once per client request (connection).
 builder.Services.AddScoped<SeedingService>();
 builder.Services.AddScoped<SellerService>();
+builder.Services.AddScoped<DepartmentService>();
 
 // Add MVC services to the service container
 builder.Services.AddControllersWithViews();

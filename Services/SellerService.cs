@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SalesWebMvc.Data;
 using SalesWebMvc.Models;
+using System.Linq;
 
 namespace SalesWebMvc.Services
 {
@@ -34,5 +31,21 @@ namespace SalesWebMvc.Services
             _context.SaveChanges();
         }
 
+        // This method retrieves a seller by its ID.
+        // It receives an integer ID as argument.
+        // It returns a Seller object.
+        public Seller FindById(int id)
+        {
+            return _context.Seller.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        // This method removes a seller from the database.
+        // It receives an integer ID as argument.
+        public void Remove(int id)
+        {
+            var obj = _context.Seller.Find(id);
+            _context.Seller.Remove(obj);
+            _context.SaveChanges();
+        }
     }
 }
