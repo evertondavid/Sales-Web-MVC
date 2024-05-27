@@ -30,6 +30,23 @@ namespace SalesWebMvc.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound(); // Returns a 404 Not Found status code
+            }
+
+            var obj = _sellerService.FindById(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound(); // Returns a 404 Not Found status code
+            }
+
+            return View(obj);
+        }
+
         public IActionResult Delete(int? id)
         {
             if (id == null)
