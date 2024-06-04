@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace SalesWebMvc.Models
 {
     /// <summary>
@@ -19,16 +21,22 @@ namespace SalesWebMvc.Models
         /// <summary>
         /// Gets or sets the Email of the seller.
         /// </summary>
+        [DataType(DataType.EmailAddress)] // Specifies the type of data (email) for the Email property in the form
         public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the BirthDate of the seller.
         /// </summary>
+        [Display(Name = "Birth Date")] // Specifies the display name for the BirthDate property in the form
+        [DataType(DataType.Date)] // Specifies the type of data (date) for the BirthDate property in the form
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] // Specifies the display format for the BirthDate property in the form
         public DateTime BirthDate { get; set; }
 
         /// <summary>
         /// Gets or sets the BaseSalary of the seller.
         /// </summary>
+        [Display(Name = "Base Salary")]
+        [DisplayFormat(DataFormatString = "CAD$ {0:F2}")] // Specifies the display format for the BaseSalary property in the form
         public double BaseSalary { get; set; }
 
         /// <summary>

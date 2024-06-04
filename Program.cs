@@ -1,7 +1,8 @@
 // Import necessary namespaces
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
-using Microsoft.Extensions.DependencyInjection;
 using SalesWebMvc.Services;
 
 // Create a new web application
@@ -27,6 +28,20 @@ builder.Services.AddControllersWithViews();
 
 // Build the application
 var app = builder.Build();
+
+// Configure the request localization options for the application
+// Set the default request culture to en-US
+// Add en-US to the list of supported cultures and UI cultures
+var enUS = new CultureInfo("en-US");
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(enUS),
+    SupportedCultures = new List<CultureInfo> { enUS },
+    SupportedUICultures = new List<CultureInfo> { enUS }
+};
+
+// Use the request localization options in the application
+app.UseRequestLocalization(localizationOptions);
 
 // Get an instance of SeedingService
 using var scope = app.Services.CreateScope();
