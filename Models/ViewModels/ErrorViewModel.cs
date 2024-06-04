@@ -12,6 +12,11 @@ namespace SalesWebMvc.Models.ViewModels
         /// This is the unique identifier for the HTTP request that caused the error.
         /// </summary>
         public string? RequestId { get; set; }
+        /// <summary>
+        /// Gets or sets the Message.
+        /// This is the error message.
+        /// </summary>
+        public string? Message { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether to show the RequestId.

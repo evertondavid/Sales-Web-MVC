@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SalesWebMvc.Models;
 using SalesWebMvc.Services;
 using SalesWebMvc.Models.ViewModels;
-using SalesWebMvc.Services.Exceptions;
+using System.Diagnostics;
 namespace SalesWebMvc.Controllers
 {
     // The SellersController class is a controller for the Seller entity.
@@ -50,14 +50,14 @@ namespace SalesWebMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound(); // Returns a 404 Not Found status code
+                return RedirectToAction(nameof(Error), new { message = "Id not provide" }); // Redirects to the Error action method of this controller
             }
 
             var obj = _sellerService.FindById(id.Value);
 
             if (obj == null)
             {
-                return NotFound(); // Returns a 404 Not Found status code
+                return RedirectToAction(nameof(Error), new { message = "Id not found" }); // Redirects to the Error action method of this controller
             }
 
             return View(obj);
@@ -72,14 +72,14 @@ namespace SalesWebMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound(); // Returns a 404 Not Found status code
+                return RedirectToAction(nameof(Error), new { message = "Id not provide" }); // Redirects to the Error action method of this controller
             }
 
             var obj = _sellerService.FindById(id.Value);
 
             if (obj == null)
             {
-                return NotFound(); // Returns a 404 Not Found status code
+                return RedirectToAction(nameof(Error), new { message = "Id not found" }); // Redirects to the Error action method of this controller
             }
 
             return View(obj);
@@ -117,14 +117,14 @@ namespace SalesWebMvc.Controllers
         {
             if (id == null)
             {
-                return NotFound(); // Returns a 404 Not Found status code
+                return RedirectToAction(nameof(Error), new { message = "Id not provide" }); // Redirects to the Error action method of this controller
             }
 
             var obj = _sellerService.FindById(id.Value);
 
             if (obj == null)
             {
-                return NotFound(); // Returns a 404 Not Found status code
+                return RedirectToAction(nameof(Error), new { message = "Id not found" }); // Redirects to the Error action method of this controller
             }
 
             List<Department> departments = _departmentService.FindAll();
@@ -145,7 +145,7 @@ namespace SalesWebMvc.Controllers
         {
             if (id != seller.Id)
             {
-                return BadRequest(); // Returns a 400 Bad Request status code
+                return RedirectToAction(nameof(Error), new { message = "Id missmatch" }); // Redirects to the Error action method of this controller
             }
 
             try
@@ -153,14 +153,19 @@ namespace SalesWebMvc.Controllers
                 _sellerService.Update(seller); // Calls the service layer to update the seller in the database
                 return RedirectToAction(nameof(Index)); // Redirects to the Index action method of this controller
             }
-            catch (NotFoundException)
+            catch (ApplicationException e)
             {
-                return NotFound(); // Returns a 404 Not Found status code
+                return RedirectToAction(nameof(Error), new { message = e.Message }); // Redirects to the Error action method of this controller
             }
-            catch (DbConcurrencyException)
+        }
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
             {
-                return BadRequest(); // Returns a 400 Bad Request status code
-            }
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
