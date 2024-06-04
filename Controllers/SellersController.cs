@@ -104,6 +104,13 @@ namespace SalesWebMvc.Controllers
         // <returns>A redirection to the Index action method.</returns>
         public IActionResult Create(Seller seller)
         {
+            // If the model state is not valid, it returns the view with the seller and a list of departments
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             _sellerService.Insert(seller); // Calls the service layer to insert the new seller into the database
             return RedirectToAction(nameof(Index)); // Redirects to the Index action method of this controller
         }
@@ -143,6 +150,13 @@ namespace SalesWebMvc.Controllers
         // <returns>A redirection to the Index action method, or a 404 Not Found or 400 Bad Request status code if an error occurs.</returns>
         public IActionResult Edit(int id, Seller seller)
         {
+            // If the model state is not valid, it returns the view with the seller and a list of departments
+            if (!ModelState.IsValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
             if (id != seller.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id missmatch" }); // Redirects to the Error action method of this controller

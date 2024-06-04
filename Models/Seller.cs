@@ -16,17 +16,22 @@ namespace SalesWebMvc.Models
         /// <summary>
         /// Gets or sets the Name of the seller.
         /// </summary>
+        [Required(ErrorMessage = "{0} required")] // Specifies that the Name property is required in the form
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} Size must be between {2} and {1}")] // Specifies the length of the Name property in the form
         public string? Name { get; set; }
 
         /// <summary>
         /// Gets or sets the Email of the seller.
         /// </summary>
+        [Required(ErrorMessage = "{0} required")] // Specifies that the e-Mail property is required in the form
+        [EmailAddress(ErrorMessage = "Enter a valid email")] // Specifies that the Email property must be a valid email address
         [DataType(DataType.EmailAddress)] // Specifies the type of data (email) for the Email property in the form
         public string? Email { get; set; }
 
         /// <summary>
         /// Gets or sets the BirthDate of the seller.
         /// </summary>
+        [Required(ErrorMessage = "{0} required")] // Specifies that the BirthDate property is required in the form
         [Display(Name = "Birth Date")] // Specifies the display name for the BirthDate property in the form
         [DataType(DataType.Date)] // Specifies the type of data (date) for the BirthDate property in the form
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] // Specifies the display format for the BirthDate property in the form
@@ -35,6 +40,8 @@ namespace SalesWebMvc.Models
         /// <summary>
         /// Gets or sets the BaseSalary of the seller.
         /// </summary>
+        [Required(ErrorMessage = "{0} required")] // Specifies that the BaseSalary property is required in the form
+        [Range(100.0, 50000.0, ErrorMessage = "{0} must be from CAD$ {1} to CAD$ {2}")] // Specifies the range of the BaseSalary property in the form
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "CAD$ {0:F2}")] // Specifies the display format for the BaseSalary property in the form
         public double BaseSalary { get; set; }

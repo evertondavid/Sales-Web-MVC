@@ -4,6 +4,38 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<style>
+    .value-dd {
+        color: white;
+    }
+
+    .custom-button {
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-danger-button {
+        background-color: rgb(220, 53, 69);
+        /* Cor padrão vermelha do btn-danger */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-danger-button:hover {
+        background-color: rgb(200, 35, 51);
+        /* Uma cor um pouco mais escura para hover */
+    }
+
+    .custom-danger-button:active {
+        background-color: rgb(180, 25, 41);
+        /* Uma cor mais escura para o estado ativo */
+    }
+</style>
 
 <div>
     <h4>Seller</h4>
@@ -12,36 +44,35 @@
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd>
+        <dd class="value-dd">
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dd>
+        <dd class="value-dd">
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.BirthDate)
         </dt>
-        <dd>
+        <dd class="value-dd">
             @Html.DisplayFor(model => model.BirthDate)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.BaseSalary)
         </dt>
-        <dd>
+        <dd class="value-dd">
             @Html.DisplayFor(model => model.BaseSalary)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Department)
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Department.Name)
+        <dd class="value-dd">
+            @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="custom-button" style="background-color: rgb(42, 82, 190);">Back to List</a>
 </div>
