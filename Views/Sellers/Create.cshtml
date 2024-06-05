@@ -3,59 +3,8 @@
     ViewData["Title"] = "Create";
     DateTime minDate = new DateTime(0001, 01, 01);
 }
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
 <h2>@ViewData["Title"]</h2>
-<style>
-    .custom-danger-button {
-        background-color: rgb(220, 53, 69);
-        /* Vermelho */
-        padding: 10px 20px;
-        /* Ajuste o padding para alcançar a altura desejada */
-        font-size: 16px;
-        /* Garanta que o tamanho da fonte seja adequado */
-        border: none;
-        border-radius: 5px;
-        color: white;
-        text-decoration: none;
-        display: inline-block;
-        /* Isso ajuda a alinhar corretamente o link */
-        transition: background-color 0.3s ease;
-    }
-
-    .custom-danger-button:hover {
-        background-color: rgb(200, 35, 51);
-        /* Vermelho escuro para hover */
-    }
-
-    .custom-danger-button:active {
-        background-color: rgb(180, 25, 41);
-        /* Vermelho mais escuro para ativo */
-    }
-
-    .custom-button {
-        background-color: rgb(42, 82, 190);
-        padding: 10px 20px;
-        /* Ajuste o padding para alcançar a altura desejada */
-        font-size: 16px;
-        /* Garanta que o tamanho da fonte seja adequado */
-        border: none;
-        border-radius: 5px;
-        color: white;
-        text-decoration: none;
-        display: inline-block;
-        /* Isso ajuda a alinhar corretamente o link */
-        transition: background-color 0.3s ease;
-    }
-
-    .custom-button:hover {
-        background-color: rgb(22, 62, 170);
-        /* Mais escuro para hover do botão azul */
-    }
-
-    .custom-button:active {
-        background-color: rgb(12, 52, 160);
-        /* Ainda mais escuro para o estado ativo */
-    }
-</style>
 <h4>Seller</h4>
 <hr />
 <div class="row">
