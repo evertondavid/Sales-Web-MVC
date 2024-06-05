@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using SalesWebMvc.Services;
 
 namespace SalesWebMvc.Models
 {
@@ -6,7 +7,7 @@ namespace SalesWebMvc.Models
     /// Class for Seller.
     /// This class represents a seller in the sales web MVC application.
     /// </summary>
-    public class Seller
+    public class Seller : ValidationService
     {
         /// <summary>
         /// Gets or sets the Id of the seller.
@@ -35,7 +36,12 @@ namespace SalesWebMvc.Models
         [Display(Name = "Birth Date")] // Specifies the display name for the BirthDate property in the form
         [DataType(DataType.Date)] // Specifies the type of data (date) for the BirthDate property in the form
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] // Specifies the display format for the BirthDate property in the form
+        [MinimumAge(18)] // Specifies the minimum age for the BirthDate property in the form
         public DateTime BirthDate { get; set; }
+        public bool ValidateAge()
+        {
+            return ValidateAge(BirthDate, 18);
+        }
 
         /// <summary>
         /// Gets or sets the BaseSalary of the seller.

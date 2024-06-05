@@ -5,51 +5,67 @@ using SalesWebMvc.Services.Exceptions;
 
 namespace SalesWebMvc.Services
 {
-    // This class provides services related to the Seller entity.
+    /// <summary>
+    /// This class provides services related to the Seller entity.
+    /// </summary>
     public class SellerService
     {
         // Database context instance
         private readonly SalesWebMvcDbContext _context;
 
-        // Constructor that receives the database context instance via dependency injection
-        // <param name="context">The database context instance.</param>
+        /// <summary>
+        /// Constructor that receives the database context instance via dependency injection.
+        /// </summary>
+        /// <param name="context">The database context instance.</param>
         public SellerService(SalesWebMvcDbContext context)
         {
             _context = context;
         }
 
-        // This method retrieves all sellers from the database.
-        // <returns>A list of Seller objects.</returns>
-        public List<Seller> FindAll()
+        /// <summary>
+        /// This method retrieves all sellers from the database.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of Seller objects.</returns>
+        public async Task<List<Seller>> FindAllAsync()
         {
-            return _context.Seller.ToList();
+            return await _context.Seller.ToListAsync();
         }
 
-        // This method inserts a new seller into the database.
-        // <param name="obj">The Seller object to insert.</param>
-        public void Insert(Seller obj)
+        /// <summary>
+        /// This method inserts a new seller into the database.
+        /// </summary>
+        /// <param name="obj">The Seller object to insert.</param>
+        public async Task InsertAsync(Seller obj)
         {
             _context.Add(obj);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        // This method retrieves a seller by its ID.
-        // <param name="id">The ID of the seller to retrieve.</param>
-        // <returns>A Seller object, or null if no seller is found with the given ID.</returns>
-        public Seller FindById(int id)
+        /// <summary>
+        /// This method retrieves a seller by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the seller to retrieve.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a Seller object, or null if no seller is found with the given ID.</returns>
+        public async Task<Seller?> FindByIdAsync(int id)
         {
-            return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
+            return await _context.Seller.Include(obj => obj.Department).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
-        // This method removes a seller from the database.
-        // <param name="id">The ID of the seller to remove.</param>
-        public void Remove(int id)
+        /// <summary>
+        /// This method removes a seller from the database.
+        /// </summary>
+        /// <param name="id">The ID of the seller to remove.</param>
+        public async Task RemoveAsync(int id)
         {
             try
             {
-                var obj = _context.Seller.Find(id);
+                var obj = await _context.Seller.FindAsync(id);
+                if (obj == null)
+                {
+                    throw new NotFoundException("Seller not found");
+                }
                 _context.Seller.Remove(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e) // This exception is thrown when there is a concurrency error in the level of database.
             {
@@ -57,18 +73,21 @@ namespace SalesWebMvc.Services
             }
         }
 
-        // This method updates a seller in the database.
-        // <param name="obj">The Seller object to update.</param>
-        public void Update(Seller obj)
+        /// <summary>
+        /// This method updates a seller in the database.
+        /// </summary>
+        /// <param name="obj">The Seller object to update.</param>
+        public async Task UpdateAsync(Seller obj)
         {
-            if (!_context.Seller.Any(x => x.Id == obj.Id))
+            bool hasAny = await _context.Seller.AnyAsync(x => x.Id == obj.Id);
+            if (!hasAny)
             {
                 throw new NotFoundException("Id not found");
             }
             try
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException e) // This exception is thrown when there is a concurrency error in the level of database.
             {

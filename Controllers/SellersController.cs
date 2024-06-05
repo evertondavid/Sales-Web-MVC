@@ -25,18 +25,18 @@ namespace SalesWebMvc.Controllers
         // This method handles the HTTP GET request for the Index view.
         // It retrieves all sellers from the database and returns them to the view.
         // <returns>A view with a list of all sellers.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _sellerService.FindAll();
+            var list = await _sellerService.FindAllAsync();
             return View(list);
         }
 
         // This method handles the HTTP GET request for the Create view.
         // It retrieves all departments from the database and returns them to the view.
         // <returns>A view with a ViewModel containing a list of all departments.</returns>
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var departments = _departmentService.FindAll();
+            var departments = await _departmentService.FindAllAsync();
             var viewModel = new SellerFormViewModel { Departments = departments };
             return View(viewModel);
         }
@@ -46,14 +46,14 @@ namespace SalesWebMvc.Controllers
         // If the ID is null or the seller is not found, it returns a 404 Not Found status code.
         // <param name="id">The ID of the seller to retrieve.</param>
         // <returns>A view with the details of the seller, or a 404 Not Found status code if the seller is not found.</returns>
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provide" }); // Redirects to the Error action method of this controller
             }
 
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
@@ -68,14 +68,14 @@ namespace SalesWebMvc.Controllers
         // If the ID is null or the seller is not found, it returns a 404 Not Found status code.
         // <param name="id">The ID of the seller to delete.</param>
         // <returns>A view with the seller to delete, or a 404 Not Found status code if the seller is not found.</returns>
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provide" }); // Redirects to the Error action method of this controller
             }
 
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
@@ -91,9 +91,9 @@ namespace SalesWebMvc.Controllers
         // It calls the service layer to remove the seller from the database and then redirects to the Index action method.
         // <param name="id">The ID of the seller to delete.</param>
         // <returns>A redirection to the Index action method.</returns>
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _sellerService.Remove(id);
+            await _sellerService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpPost] // This attribute indicates that the method responds to HTTP POST requests
@@ -102,16 +102,16 @@ namespace SalesWebMvc.Controllers
         // It calls the service layer to insert the new seller into the database and then redirects to the Index action method.
         // <param name="seller">The seller to create.</param>
         // <returns>A redirection to the Index action method.</returns>
-        public IActionResult Create(Seller seller)
+        public async Task<IActionResult> Create(Seller seller)
         {
             // If the model state is not valid, it returns the view with the seller and a list of departments
             if (!ModelState.IsValid)
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
                 return View(viewModel);
             }
-            _sellerService.Insert(seller); // Calls the service layer to insert the new seller into the database
+            await _sellerService.InsertAsync(seller); // Calls the service layer to insert the new seller into the database
             return RedirectToAction(nameof(Index)); // Redirects to the Index action method of this controller
         }
 
@@ -120,21 +120,21 @@ namespace SalesWebMvc.Controllers
         // If the ID is null or the seller is not found, it returns a 404 Not Found status code.
         // <param name="id">The ID of the seller to edit.</param>
         // <returns>A view with the seller to edit and a list of all departments, or a 404 Not Found status code if the seller is not found.</returns>
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provide" }); // Redirects to the Error action method of this controller
             }
 
-            var obj = _sellerService.FindById(id.Value);
+            var obj = await _sellerService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" }); // Redirects to the Error action method of this controller
             }
 
-            List<Department> departments = _departmentService.FindAll();
+            List<Department> departments = await _departmentService.FindAllAsync();
             SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
             return View(viewModel);
         }
@@ -148,12 +148,12 @@ namespace SalesWebMvc.Controllers
         // <param name="id">The ID of the seller to update.</param>
         // <param name="seller">The seller to update.</param>
         // <returns>A redirection to the Index action method, or a 404 Not Found or 400 Bad Request status code if an error occurs.</returns>
-        public IActionResult Edit(int id, Seller seller)
+        public async Task<IActionResult> Edit(int id, Seller seller)
         {
             // If the model state is not valid, it returns the view with the seller and a list of departments
             if (!ModelState.IsValid)
             {
-                var departments = _departmentService.FindAll();
+                var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
                 return View(viewModel);
             }
@@ -164,7 +164,7 @@ namespace SalesWebMvc.Controllers
 
             try
             {
-                _sellerService.Update(seller); // Calls the service layer to update the seller in the database
+                await _sellerService.UpdateAsync(seller); // Calls the service layer to update the seller in the database
                 return RedirectToAction(nameof(Index)); // Redirects to the Index action method of this controller
             }
             catch (ApplicationException e)
