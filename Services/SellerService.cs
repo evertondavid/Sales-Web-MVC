@@ -67,9 +67,9 @@ namespace SalesWebMvc.Services
                 _context.Seller.Remove(obj);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException e) // This exception is thrown when there is a concurrency error in the level of database.
+            catch (DbUpdateException e) // This exception is thrown when there is a concurrency error in the level of database.
             {
-                throw new DbConcurrencyException(e.Message); // We throw our custom exception at Service Level.
+                throw new IntegrityException("Can't delete seller because he/she has sales: System message(" + e.Message + ")"); // We throw our custom exception at Service Level.
             }
         }
 

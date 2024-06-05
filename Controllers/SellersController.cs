@@ -3,6 +3,7 @@ using SalesWebMvc.Models;
 using SalesWebMvc.Services;
 using SalesWebMvc.Models.ViewModels;
 using System.Diagnostics;
+using SalesWebMvc.Services.Exceptions;
 namespace SalesWebMvc.Controllers
 {
     // The SellersController class is a controller for the Seller entity.
@@ -93,8 +94,15 @@ namespace SalesWebMvc.Controllers
         // <returns>A redirection to the Index action method.</returns>
         public async Task<IActionResult> Delete(int id)
         {
-            await _sellerService.RemoveAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _sellerService.RemoveAsync(id); // Calls the service layer to remove the seller from the database
+                return RedirectToAction(nameof(Index)); // Redirects to the Index action method of this controller
+            }
+            catch (IntegrityException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message }); // Redirects to the Error action method of this controller
+            }
         }
         [HttpPost] // This attribute indicates that the method responds to HTTP POST requests
         [ValidateAntiForgeryToken] // This attribute helps prevent CSRF attacks (Cross-Site Request Forgery) by validating the request token
