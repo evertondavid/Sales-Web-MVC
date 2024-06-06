@@ -71,6 +71,15 @@ html {
   color: white;
 }
 
+.value-p {
+  color: white;
+}
+
+.value-li {
+  color: white;
+}
+
+
 html {
   position: relative;
   min-height: 100%;

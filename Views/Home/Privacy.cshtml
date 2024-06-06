@@ -1,12 +1,100 @@
-﻿// C# code
-@{
+﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-// HTML code
-<h1>@ViewData["Title"]</h1>
-</br>
-<h2>@ViewData["Message"]</h2>
-</br>
-<p>Use this page to detail your site's privacy policy.</p>
-</br>
-<p>@ViewData["Email"]</p>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SalesWebMVC</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        .privacy-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .privacy-header img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="privacy-header">
+            <img src="https://cdn.pixabay.com/photo/2013/07/12/15/51/padlock-150460_1280.png" alt="Privacy Icon">
+            <h1>@ViewData["Title"]</h1>
+        </div>
+    </header>
+    <main>
+        <section>
+            <h2>Introduction</h2>
+            <p class="value-p">Welcome to SalesWebMVC. We are committed to protecting your privacy and ensuring that
+                your personal
+                information is handled in a safe and responsible manner. This policy outlines how we collect, use, and
+                protect your information.</p>
+        </section>
+        <section>
+            <h2>Information We Collect</h2>
+            <p class="value-p">We may collect the following information:</p>
+            <ul>
+                <li>Personal identification information (Name, email address, phone number, etc.)</li>
+                <li>Payment information (credit card details, billing address, etc.)</li>
+                <li>Usage data (pages visited, time spent on site, etc.)</li>
+            </ul>
+        </section>
+        <section>
+            <h2>How We Use Your Information</h2>
+            <p class="value-p">We use the collected information for the following purposes:</p>
+            <ul>
+                <li>To provide and maintain our services</li>
+                <li>To notify you about changes to our services</li>
+                <li>To provide customer support</li>
+                <li>To gather analysis or valuable information so that we can improve our services</li>
+                <li>To monitor the usage of our service</li>
+                <li>To detect, prevent and address technical issues</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Sharing Your Information</h2>
+            <p class="value-p">We do not share your personal information with third parties except as necessary to
+                provide our services
+                or as required by law.</p>
+        </section>
+        <section>
+            <h2>Your Choices</h2>
+            <p class="value-p">You can choose not to provide certain information, but this may limit your ability to use
+                some features
+                of our services. You can also opt out of receiving promotional communications from us by following the
+                instructions in those communications.</p>
+        </section>
+        <section>
+            <h2>Data Security</h2>
+            <p class="value-p">We use appropriate security measures to protect against unauthorized access to or
+                unauthorized
+                alteration, disclosure, or destruction of your personal information.</p>
+        </section>
+        <section>
+            <h2>Changes to This Privacy Policy</h2>
+            <p class="value-p">We may update our Privacy Policy from time to time. We will notify you of any changes by
+                posting the new
+                Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.
+            </p>
+        </section>
+        <section>
+            <h2>Contact Us</h2>
+            <p class="value-p">If you have any questions about this Privacy Policy, please contact us at:</p>
+            <p>Email: @ViewData["Email"]</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 - SalesWebMVC</p>
+    </footer>
+</body>
+
+</html>

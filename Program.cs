@@ -1,5 +1,7 @@
 // Import necessary namespaces
 using System.Globalization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Data;
@@ -20,8 +22,10 @@ builder.Services.AddDbContext<SalesWebMvcDbContext>(options =>
 // Register SeedingService for dependency injection.
 // Scoped lifetime services are created once per client request (connection).
 builder.Services.AddScoped<SeedingService>();
+// Register services for dependency injection.
 builder.Services.AddScoped<SellerService>();
 builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<SalesRecordService>();
 
 // Add MVC services to the service container
 builder.Services.AddControllersWithViews();
@@ -70,6 +74,19 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
+    })
+    .AddCookie()
+    .AddFacebook(facebookOptions =>
+    {
+        facebookOptions.AppId = "3920309334863877";
+        facebookOptions.AppSecret = "36dd33522ef34080523b9b04a4cae49d";
+    });
 
 // Run the application
 app.Run();
